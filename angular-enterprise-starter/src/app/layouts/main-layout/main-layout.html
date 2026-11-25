@@ -1,0 +1,96 @@
+<div class="layout-shell" [class.sidebar-collapsed]="isSidebarCollapsed()">
+  <!-- Barra lateral (Sidebar) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="brand-badge">ES</span>
+      @if (!isSidebarCollapsed()) {
+        <span class="brand-name">{{ appName }}</span>
+      }
+    </div>
+
+    <nav class="sidebar-nav">
+      <button
+        type="button"
+        class="nav-item"
+        [class.active]="activeSection() === 'Dashboard'"
+        (click)="selectSection('Dashboard')"
+      >
+        <span class="nav-icon">📊</span>
+        @if (!isSidebarCollapsed()) {
+          <span>Dashboard</span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        [class.active]="activeSection() === 'Productos'"
+        (click)="selectSection('Productos')"
+      >
+        <span class="nav-icon">📦</span>
+        @if (!isSidebarCollapsed()) {
+          <span>Productos</span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="nav-item"
+        [class.active]="activeSection() === 'Configuración'"
+        (click)="selectSection('Configuración')"
+      >
+        <span class="nav-icon">⚙️</span>
+        @if (!isSidebarCollapsed()) {
+          <span>Configuración</span>
+        }
+      </button>
+
+        <button
+        type="button"
+        class="nav-item"
+        [class.active]="activeSection() === 'Reportes'"
+        (click)="selectSection('Reportes')"
+      >
+        <span class="nav-icon">📊</span>
+        @if (!isSidebarCollapsed()) {
+          <span>Reportes</span>
+        }
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Columna derecha: Navbar + Contenido + Footer -->
+  <div class="main-wrapper">
+    <header class="navbar">
+      <div class="navbar-left">
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="toggleSidebar()"
+          [attr.aria-label]="isSidebarCollapsed() ? 'Expandir menú' : 'Colapsar menú'"
+        >
+          ☰
+        </button>
+        <h1 class="page-title">{{ activeSection() }}</h1>
+      </div>
+
+      <div class="navbar-right">
+        <span class="user-pill">Usuario Demo</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <!--
+        <ng-content /> es un "hueco" (slot):
+        todo el HTML que pongas ENTRE <app-main-layout> y </app-main-layout>
+        se va a inyectar automáticamente acá adentro.
+      -->
+      <ng-content />
+    </main>
+
+    <footer class="footer">
+      <span>{{ appName }} © {{ currentYear }}</span>
+      <span>Angular v22 Starter</span>
+    </footer>
+  </div>
+</div>

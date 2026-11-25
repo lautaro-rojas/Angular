@@ -1,0 +1,38 @@
+/* Variables globales de diseño */
+:root {
+  --bg-app: #0f0f14;
+  --bg-surface: #181822;
+  --bg-surface-hover: #242433;
+  --border-color: #2c2c3e;
+  --text-primary: #f4f4f8;
+  --text-secondary: #a1a1b5;
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 72px;
+  --navbar-height: 60px;
+}
+
+/* Reset básico: evita desbordes por padding/border y márgenes raros del navegador */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
