@@ -1,10 +1,63 @@
 <app-main-layout>
-  <section class="welcome-card">
-    <h2>Bienvenido a tu plantilla Angular</h2>
-    <p>
-      Este bloque está escrito en <code>app.html</code>, pero Angular lo proyectó
-      automáticamente adentro del <code>&lt;ng-content /&gt;</code> de
-      <code>MainLayout</code>.
-    </p>
-  </section>
+  <app-card
+    title="Catálogo de prueba (Shared Components)"
+    [subtitle]="
+      'Mostrando ' +
+      filteredProducts().length +
+      ' productos · Inventario: $' +
+      totalInventoryValue().toLocaleString('es-AR')
+    "
+  >
+    <!-- Este botón cae automáticamente en <ng-content select="[card-actions]" /> -->
+    <button
+      card-actions
+      type="button"
+      class="btn-primary"
+      (click)="simulateReload()"
+      [disabled]="isLoading()"
+    >
+      Simular recarga
+    </button>
+
+    <div class="toolbar">
+      <input
+        type="search"
+        class="search-input"
+        placeholder="Filtrar por nombre o categoría..."
+        [value]="searchTerm()"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    @if (isLoading()) {
+      <app-loader message="Consultando catálogo..." />
+    } @else {
+      <app-data-table
+        [data]="filteredProducts()"
+        [columns]="columns"
+        emptyMessage="Ningún producto coincide con tu búsqueda."
+        (rowClick)="openProductDetail($event)"
+      />
+    }
+  </app-card>
+
+  <!-- Modal reutilizable conectado al producto seleccionado -->
+  <app-modal
+    [isOpen]="isModalOpen()"
+    [title]="selectedProduct()?.name ?? ''"
+    (closed)="closeModal()"
+  >
+    @if (selectedProduct(); as product) {
+      <div class="detail-grid">
+        <p><strong>ID:</strong> #{{ product.id }}</p>
+        <p><strong>Categoría:</strong> {{ product.category }}</p>
+        <p><strong>Precio:</strong> ${{ product.price.toLocaleString('es-AR') }}</p>
+        <p><strong>Stock actual:</strong> {{ product.stock }} unidades</p>
+      </div>
+    }
+
+    <button modal-footer type="button" class="btn-secondary" (click)="closeModal()">
+      Cerrar
+    </button>
+  </app-modal>
 </app-main-layout>

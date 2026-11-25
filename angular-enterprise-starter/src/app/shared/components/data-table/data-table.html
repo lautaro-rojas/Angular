@@ -1,0 +1,27 @@
+<div class="table-wrapper">
+  <table class="data-table">
+    <thead>
+      <tr>
+        @for (col of columns(); track col.key) {
+          <th>{{ col.label }}</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of data(); track row.id) {
+        <tr class="clickable-row" (click)="onRowClick(row)">
+          @for (col of columns(); track col.key) {
+            <td>{{ col.format ? col.format(row) : row[col.key] }}</td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="columns().length" class="empty-cell">
+            {{ emptyMessage() }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
