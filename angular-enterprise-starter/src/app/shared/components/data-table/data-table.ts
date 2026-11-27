@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 
 export interface TableColumn<T> {
   key: keyof T & string;
@@ -10,6 +10,7 @@ export interface TableColumn<T> {
   selector: 'app-data-table',
   imports: [],
   templateUrl: './data-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './data-table.css',
 })
 export class DataTable<T extends { id: string | number }> {

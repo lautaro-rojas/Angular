@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Card } from './shared/components/card/card';
 import { Loader } from './shared/components/loader/loader';
@@ -17,6 +17,7 @@ interface DemoProduct {
   selector: 'app-root',
   imports: [MainLayout, Card, Loader, Modal, DataTable],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css',
 })
 export class App {
@@ -54,9 +55,7 @@ export class App {
     if (!term) return this.products();
 
     return this.products().filter(
-      (p) =>
-        p.name.toLowerCase().includes(term) ||
-        p.category.toLowerCase().includes(term)
+      (p) => p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term),
     );
   });
 
@@ -65,14 +64,14 @@ export class App {
 
   // COMPUTED: suma total del valor en inventario de los productos filtrados
   protected readonly totalInventoryValue = computed(() =>
-    this.filteredProducts().reduce((acc, item) => acc + item.price * item.stock, 0)
+    this.filteredProducts().reduce((acc, item) => acc + item.price * item.stock, 0),
   );
 
   constructor() {
     // EFFECT: abrí F12 -> Console en el navegador para verlo reaccionar al filtrar
     effect(() => {
       console.log(
-        `[Signals Effect] Filtro: "${this.searchTerm()}" | Coincidencias: ${this.filteredProducts().length}`
+        `[Signals Effect] Filtro: "${this.searchTerm()}" | Coincidencias: ${this.filteredProducts().length}`,
       );
     });
   }

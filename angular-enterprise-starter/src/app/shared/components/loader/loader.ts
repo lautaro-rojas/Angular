@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 export type LoaderSize = 'sm' | 'md' | 'lg';
 
@@ -6,6 +6,7 @@ export type LoaderSize = 'sm' | 'md' | 'lg';
   selector: 'app-loader',
   imports: [],
   templateUrl: './loader.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './loader.css',
 })
 export class Loader {
